@@ -1,8 +1,7 @@
 'use strict';
 
-const secretNumber = Math.trunc(Math.random() * 20) + 1; // find a random number between 0 and 20
+let secretNumber = Math.trunc(Math.random() * 20) + 1; // find a random number between 0 and 20
 let score = 20; //state variable
-document.querySelector('.number').textContent = secretNumber;
 
 document.querySelector('.check').addEventListener('click', function () {
   const guess = Number(document.querySelector('.guess').value);
@@ -16,6 +15,12 @@ document.querySelector('.check').addEventListener('click', function () {
     //when player wins
   } else if (guess === secretNumber) {
     document.querySelector('.message').textContent = 'Correct Number';
+
+    document.querySelector('.number').textContent = secretNumber;
+
+    document.querySelector('body').style.backgroundColor = '#60b347';
+
+    document.querySelector('.number').style.width = '30rem';
 
     //when guess is to high
   } else if (guess > secretNumber) {
@@ -35,7 +40,21 @@ document.querySelector('.check').addEventListener('click', function () {
       document.querySelector('.score').textContent = score;
     } else {
       document.querySelector('.message').textContent = 'You lost the game';
+      document.querySelector('.score').textContent = 0;
     }
   }
 }); //select the button check
 //the function will be called when the event happens
+document.querySelector('.again').addEventListener('click', function () {
+  score = 20;
+  secretNumber = Math.trunc(Math.random() * 20) + 1;
+
+  document.querySelector('.message').textContent = 'Start guessing...';
+  document.querySelector('.score').textContent = score;
+  document.querySelector('.number').textContent = '?';
+  document.querySelector('.guess').value = '';
+
+  document.querySelector('body').style.backgroundColor = 'black';
+
+  document.querySelector('.number').style.width = '15rem';
+});
