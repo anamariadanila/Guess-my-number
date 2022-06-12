@@ -2,6 +2,7 @@
 
 let secretNumber = Math.trunc(Math.random() * 20) + 1; // find a random number between 0 and 20
 let score = 20; //state variable
+let highscore = 0;
 
 document.querySelector('.check').addEventListener('click', function () {
   const guess = Number(document.querySelector('.guess').value);
@@ -22,25 +23,20 @@ document.querySelector('.check').addEventListener('click', function () {
 
     document.querySelector('.number').style.width = '30rem';
 
-    //when guess is to high
-  } else if (guess > secretNumber) {
-    if (score > 0) {
-      document.querySelector('.message').textContent = 'Too high';
-      score--;
-      document.querySelector('.score').textContent = score;
-    } else {
-      document.querySelector('.message').textContent = 'You lost the game';
+    if (score > highscore) {
+      highscore = score;
+      document.querySelector('.highscore').textContent = highscore;
     }
 
-    //when the guess is too low
-  } else if (guess < secretNumber) {
-    if (score > 0) {
-      document.querySelector('.message').textContent = 'Too low';
+    //when guess is to high
+  } else if (guess !== secretNumber) {
+    if (score > 1) {
+      document.querySelector('.message').textContent =
+        guess > secretNumber ? 'Too high' : 'Too low';
       score--;
       document.querySelector('.score').textContent = score;
     } else {
       document.querySelector('.message').textContent = 'You lost the game';
-      document.querySelector('.score').textContent = 0;
     }
   }
 }); //select the button check
